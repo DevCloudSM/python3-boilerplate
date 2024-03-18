@@ -11,5 +11,9 @@ class Application:
 
 app = Application()
 
+# For wsgi (two arguments are required)
+def start(environ, start_response):
+    return app.app(environ, start_response)
+    
 if __name__ == '__main__':
-    app.run()
+    start()
