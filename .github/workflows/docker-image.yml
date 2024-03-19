@@ -2,20 +2,16 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    branches: ["release/*"]
 
 jobs:
-
   build:
-
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/checkout@v3
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag reg.x9.pm/python3-boilerplate:$GITHUB_SHA
+      - uses: actions/checkout@v3
+      - name: Build the Docker image
+        run: docker build . --file Dockerfile --tag reg.x9.pm/python3-boilerplate:$GITHUB_SHA
 
-    - name: Commit the Docker image
-      run: docker push reg.x9.pm/python3-boilerplate:$GITHUB_SHA
+      - name: Commit the Docker image
+        run: docker push reg.x9.pm/python3-boilerplate:$GITHUB_SHA
