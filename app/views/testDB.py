@@ -13,5 +13,5 @@ def testDB() -> Response:
     db.session.add(user)
     db.session.commit()
     # Get the user from the database
-    test = Users.query.all()
+    test = Users.query.first().to_dict()
     return jsonify({"data": test})
