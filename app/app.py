@@ -26,7 +26,8 @@ class Application:
         # DB check if all tables are created
         if os.getenv("DB_CREATE", "FALSE") == "TRUE":
             with self.app.app_context():
-                db.delete_all()
+                print("Creating all tables")
+                #db.delete_all()
                 db.create_all()
 
         self.init_routes()
