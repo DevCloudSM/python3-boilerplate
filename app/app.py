@@ -61,6 +61,7 @@ class Application:
     def init_routes(self):
         self.app.add_url_rule('/ping', view_func=views.ping, methods=['GET'])
         self.app.add_url_rule('/testDB', view_func=views.testDB, methods=['GET'])
+        self.app.add_url_rule('/testJWT', view_func=views.TestJWT, methods=['GET', 'POST', 'PUT', 'DELETE', 'PATCH'])
 
 
 app = Application()

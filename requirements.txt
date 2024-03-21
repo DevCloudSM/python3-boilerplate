@@ -7,3 +7,4 @@ psycopg2-binary
 sqlalchemy_serializer
 cryptography
 sqlalchemy_utils
+pyjwt

@@ -6,7 +6,7 @@ from utils import PathUtils
 class Genkeys:
 	"""docstring for Genkeys"""
 	def __init__(self):
-		self.pUtils = PathUtils()
+		pUtils = PathUtils()
 
 		super(Genkeys, self).__init__()
 
@@ -30,7 +30,7 @@ class Genkeys:
 		# DEV:
 		#save_file("./data/private.pem", pem)
 		# PROD:
-		save_file(PathUtils.getDataPath() / "private.pem", pem)  
+		save_file(pUtils.getDataPath() / "private.pem", pem)  
 		  
 		# generate public key  
 		public_key = private_key.public_key()  
@@ -41,4 +41,4 @@ class Genkeys:
 		# DEV:
 		#save_file("./shared/private.pem", pem)
 		# PROD:
-		save_file(PathUtils.getSharedPath() / "jwt_rsa.pem", pem)  
+		save_file(pUtils.getSharedPath() / "jwt_rsa.pem", pem)  

@@ -18,4 +18,4 @@ mkdir -p ./dev_env/shared
 
 source .venv/bin/activate
 
-cd app && PYTHONUNBUFFERED=TRUE DB_PASSWORD=mysecretpassword DEBUG=TRUE gunicorn --bind 0.0.0.0:3000 app:start
+cd app && PYTHONUNBUFFERED=TRUE DEBUG=TRUE gunicorn --reload --bind 0.0.0.0:3000 app:start
