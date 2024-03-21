@@ -1,16 +1,19 @@
 from cryptography.hazmat.backends import default_backend  
 from cryptography.hazmat.primitives import serialization  
 from cryptography.hazmat.primitives.asymmetric import rsa
+from utils import PathUtils
 
 class Genkeys:
 	"""docstring for Genkeys"""
 	def __init__(self):
+		self.pUtils = PathUtils()
+
 		super(Genkeys, self).__init__()
 
 		def save_file(filename, content):  
-		   f = open(filename, "wb")  
-		   f.write(content)
-		   f.close()  
+			f = open(filename, "wb")  
+			f.write(content)
+			f.close()  
 		  
 		  
 		# generate private key & write to disk  
@@ -27,7 +30,7 @@ class Genkeys:
 		# DEV:
 		#save_file("./data/private.pem", pem)
 		# PROD:
-		save_file("/var/lib/NOM_APPLI/data/private.pem", pem)  
+		save_file(PathUtils.getDataPath() / "private.pem", pem)  
 		  
 		# generate public key  
 		public_key = private_key.public_key()  
@@ -38,4 +41,4 @@ class Genkeys:
 		# DEV:
 		#save_file("./shared/private.pem", pem)
 		# PROD:
-		save_file("/var/lib/NOM_APPLI/shared/jwt_rsa.pem", pem)  
+		save_file(PathUtils.getSharedPath() / "jwt_rsa.pem", pem)  

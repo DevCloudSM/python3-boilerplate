@@ -1,14 +1,10 @@
 import views
 import os
-import logging 
 from flask import Flask
 from database import db
-#from genkeys import 
-from genkeys import Genkeys
 from sqlalchemy import create_engine
 from sqlalchemy_utils import database_exists, create_database
-from pathlib import Path, PurePosixPath
-
+from utils import PathUtils
     
 class Application: 
     def __init__(self):
@@ -24,13 +20,10 @@ class Application:
         self.app.config['SQLALCHEMY_DATABASE_URI'] = self.sql_url
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         self.app.config['DEBUG'] = (os.getenv("DEBUG", "TRUE") == "TRUE")
-        if self.app.config['DEBUG']:
-            self.app.config['ROOT_PATH'] = Path(__file__).parent.parent / "dev_env"
-        else:
-            self.app.config['ROOT_PATH'] = PurePosixPath("/") / "var" / "lib" / "kirbi"
 
-        print(self.app.config['ROOT_PATH'])
-        if not os.path.isfile(self.app.config['ROOT_PATH'] / "data" / ".firstrun"):
+        self.pUtils = PathUtils()
+
+        if not os.path.isfile(self.pUtils.getDataPath() / ".firstrun"):
             self.first_run()
         else :
             db.init_app(self.app)
@@ -54,14 +47,12 @@ class Application:
                 print("> Database created")
             else :
                 print("> Database already exists")
-            Genkeys()
-            print("> RSA key pair generated")
             db.init_app(self.app)
             print("> App started")
             with self.app.app_context():
                 db.create_all()
             print("> Tables created")
-            open(self.app.config['ROOT_PATH'] / "data" / ".firstrun", 'w').close()
+            open(self.pUtils.getDataPath() / ".firstrun", 'w').close()
             print("> Status saved")
 
     def run(self):
