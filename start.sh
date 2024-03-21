@@ -1,5 +1,6 @@
 #!/bin/bash 
 
+cd ..
 # Check if venv exists
 if [ ! -d ".venv" ]; then
     echo "Creating virtual environment"
@@ -8,9 +9,12 @@ if [ ! -d ".venv" ]; then
     source .venv/bin/activate
 
     # Install the requirements
-    pip install -r requirements.txt
+    pip3 install -r requirements.txt
 fi
+
+mkdir -p ./dev_env/data
+mkdir -p ./dev_env/shared
 
 source .venv/bin/activate
 
-cd app && gunicorn --bind 0.0.0.0:3000 app:start
+cd app && PYTHONUNBUFFERED=TRUE DEBUG=TRUE gunicorn --bind 0.0.0.0:3000 app:start

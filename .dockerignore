@@ -87,3 +87,6 @@ venv/
 
 # VS Code
 .vscode/
+
+
+dev_env/
