@@ -6,7 +6,7 @@ class PathUtils():
     rootpath = None
     
     def __init__(self):
-        if os.getenv("DEBUG", "TRUE") == "TRUE":
+        if os.getenv("DEBUG", "FALSE") == "TRUE":
             self.rootpath = Path(__file__).parent.parent / "dev_env"
         else:
             self.rootpath = PurePosixPath("/") / "var" / "lib" / "kirbi"

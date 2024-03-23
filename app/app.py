@@ -19,7 +19,7 @@ class Application:
         self.sql_url = f"postgresql://{db_c['user']}:{db_c['pass']}@{db_c['host']}:{db_c['port']}/{db_c['name']}"
         self.app.config['SQLALCHEMY_DATABASE_URI'] = self.sql_url
         self.app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-        self.app.config['DEBUG'] = (os.getenv("DEBUG", "TRUE") == "TRUE")
+        self.app.config['DEBUG'] = (os.getenv("DEBUG", "FALSE") == "TRUE")
 
         self.pUtils = PathUtils()
 
@@ -56,7 +56,7 @@ class Application:
             print("> Status saved")
 
     def run(self):
-        self.app.run(debug=(os.getenv("DEBUG", "TRUE") == "TRUE"), use_reloader=True)
+        self.app.run(debug=(os.getenv("DEBUG", "FALSE") == "TRUE"), use_reloader=True)
 
     def init_routes(self):
         self.app.add_url_rule('/ping', view_func=views.ping, methods=['GET'])
